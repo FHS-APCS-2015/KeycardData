@@ -20,12 +20,11 @@ import javax.swing.JOptionPane;
  * @author David
  */
 public class GUI extends javax.swing.JFrame implements KeyListener, WindowListener {
-
 	private static final String path = "2017/";
 	private static final String studentData = "StudentData.csv";
 	private static final String attendanceData = "AttendanceData.csv";
 	private static final int CURRENT_SEASON = 2017;
-	protected static final int ENDING_HOUR = 11;
+	protected static final int ENDING_HOUR = 23;
 	protected static final int STARTING_HOUR = 5;
 
 	private EmployeeRecords records;
@@ -43,7 +42,7 @@ public class GUI extends javax.swing.JFrame implements KeyListener, WindowListen
 		displayTextArea.addKeyListener(this);
 		this.addWindowListener(this);
 	}
-	
+
 	public EmployeeRecords getRecords() {
 		return records;
 	}
@@ -209,7 +208,6 @@ public class GUI extends javax.swing.JFrame implements KeyListener, WindowListen
 					}
 				}
 			}
-
 		} else if (first.equals("report")) {
 			generateReport();
 		} else if (first.equals("list")) {
@@ -223,8 +221,13 @@ public class GUI extends javax.swing.JFrame implements KeyListener, WindowListen
 			System.exit(0);
 		} else if (first.equals("register")) {
 			handleRegisterCommand(commandobj);
-		} else { // ***** Register Swipe *****
+		} else if (first.substring(0, 1).matches("\\d+")) { // ***** Register
+															// Swipe *****
 			registerSwipe(commandobj);
+		} else if (first.equals("exit") || first.equals("quit")) {
+			this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+		} else {
+			this.displayHelpMessage();
 		}
 	}
 
@@ -236,7 +239,7 @@ public class GUI extends javax.swing.JFrame implements KeyListener, WindowListen
 		}
 
 		registerId(second);
-		
+
 	}
 
 	private void registerId(String second) {
@@ -252,7 +255,7 @@ public class GUI extends javax.swing.JFrame implements KeyListener, WindowListen
 		int year;
 		try {
 			year = Integer.parseInt(fresh);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			year = CURRENT_SEASON;
 		}
 		Employee e = new Employee(second, fn, ln, Employee.getSubteamFor(team), year);
@@ -270,7 +273,7 @@ public class GUI extends javax.swing.JFrame implements KeyListener, WindowListen
 	private void listPresentStudents(CommandWords commandobj) {
 		List<Employee> lst = records.getEmployeesInBuildingAt(LocalDateTime.now());
 		String second = commandobj.second;
-		
+
 		if (second == null) {
 			displayTextArea.append("Students preset at " + LocalDateTime.now() + ": " + lst.size() + "\n");
 
@@ -327,6 +330,7 @@ public class GUI extends javax.swing.JFrame implements KeyListener, WindowListen
 		for (Employee e : list) {
 			displayTextArea.append(e.displayInfo() + "\n");
 			displayTextArea.append(e.getReportFor() + "\n");
+			displayTextArea.append(e.getLastLogin() + "\n");
 		}
 
 	}
@@ -402,14 +406,14 @@ public class GUI extends javax.swing.JFrame implements KeyListener, WindowListen
 				gui.setVisible(true);
 			}
 		});
-		
+
 		new Thread(new Runnable() {
 			public void run() {
 				boolean night = false;
-				while(true) {
+				while (true) {
 					LocalDateTime now = LocalDateTime.now();
 					if (!night && now.getHour() > ENDING_HOUR) {
-						System.out.println("Auto-Logging-out");
+						System.out.println("Auto-Logging-out at hour " + now.getHour());
 						gui.getRecords().logOutAllStudents();
 						gui.getRecords().writeAttendanceDataToFile(path + attendanceData);
 						night = true;

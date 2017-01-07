@@ -1,6 +1,7 @@
 package robotics;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalUnit;
@@ -17,6 +18,8 @@ public class Employee implements Comparable<Employee> {
 	private int firstYear;
 	private ArrayList<LocalDateTime> timesIn, timesOut, forgotToSignOutDates;
 	private boolean inBuilding;
+	
+	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a");
 
 	public Employee(String id, String fn, String ln, Subteam subteam, int firstyear) {
 		this.id = id;
@@ -97,7 +100,7 @@ public class Employee implements Comparable<Employee> {
 		String s = "Total hours (including days they forgot to sign out): " + getTotalTime(true);
 		s += "\nTotal hours (discounting days they forgot to sign out): " + getTotalTime(false);
 		s += "\n# times forgot to sign out: " + this.forgotToSignOutDates.size();
-		s += "\n\n";
+		s += "\n";
 		return s;
 	}
 	
@@ -182,5 +185,15 @@ public class Employee implements Comparable<Employee> {
 
 	public void forgotToSignOut(LocalDateTime datetime) {
 		forgotToSignOutDates.add(datetime);
+	}
+
+	public String getLastLogin() {
+		String ret = "last login: ";
+		if (this.timesIn.size() > 0) {
+			ret += timesIn.get(timesIn.size()-1).format(formatter);
+		} else {
+			ret += "never";
+		}
+		return ret;
 	}
 }
