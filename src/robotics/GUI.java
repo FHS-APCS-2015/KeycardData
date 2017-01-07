@@ -19,12 +19,14 @@ import javax.swing.JOptionPane;
  *
  * @author David
  */
-public class GUI extends javax.swing.JFrame implements KeyListener,
-		WindowListener {
-	private static final String path = "";
+public class GUI extends javax.swing.JFrame implements KeyListener, WindowListener {
+
+	private static final String path = "2017/";
 	private static final String studentData = "StudentData.csv";
 	private static final String attendanceData = "AttendanceData.csv";
-	private static final int CURRENT_SEASON = 2015;
+	private static final int CURRENT_SEASON = 2017;
+	protected static final int ENDING_HOUR = 11;
+	protected static final int STARTING_HOUR = 5;
 
 	private EmployeeRecords records;
 
@@ -40,6 +42,10 @@ public class GUI extends javax.swing.JFrame implements KeyListener,
 
 		displayTextArea.addKeyListener(this);
 		this.addWindowListener(this);
+	}
+	
+	public EmployeeRecords getRecords() {
+		return records;
 	}
 
 	public void windowClosing(java.awt.event.WindowEvent windowEvent) {
@@ -75,9 +81,8 @@ public class GUI extends javax.swing.JFrame implements KeyListener,
 			}
 		});
 
-		jPanel1
-				.setBorder(javax.swing.BorderFactory
-						.createTitledBorder("Firebots Attendance Tracker - Type 'help' to see commands"));
+		jPanel1.setBorder(javax.swing.BorderFactory
+				.createTitledBorder("Firebots Attendance Tracker - Type 'help' to see commands"));
 
 		jScrollPane1.setEnabled(false);
 
@@ -107,82 +112,44 @@ public class GUI extends javax.swing.JFrame implements KeyListener,
 
 		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
 		jPanel1.setLayout(jPanel1Layout);
-		jPanel1Layout
-				.setHorizontalGroup(jPanel1Layout
-						.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-						.addGroup(
-								jPanel1Layout
-										.createSequentialGroup()
-										.addContainerGap()
-										.addGroup(
-												jPanel1Layout
-														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.LEADING)
-														.addGroup(
-																jPanel1Layout
-																		.createSequentialGroup()
-																		.addComponent(jLabel1)
-																		.addPreferredGap(
-																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																		.addComponent(jTextField1))
-														.addGroup(
-																jPanel1Layout
-																		.createSequentialGroup()
-																		.addComponent(jScrollPane1,
-																				javax.swing.GroupLayout.PREFERRED_SIZE,
-																				477,
-																				javax.swing.GroupLayout.PREFERRED_SIZE)
-																		.addPreferredGap(
-																				javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-																		.addComponent(jScrollPane2,
-																				javax.swing.GroupLayout.DEFAULT_SIZE,
-																				332, Short.MAX_VALUE)))
-										.addContainerGap()));
-		jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(
-				javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(
-						jPanel1Layout
-								.createSequentialGroup()
-								.addContainerGap()
-								.addGroup(
-										jPanel1Layout
-												.createParallelGroup(
-														javax.swing.GroupLayout.Alignment.LEADING, false)
-												.addComponent(jScrollPane2,
-														javax.swing.GroupLayout.DEFAULT_SIZE, 319,
-														Short.MAX_VALUE).addComponent(jScrollPane1))
-								.addPreferredGap(
-										javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-								.addGroup(
-										jPanel1Layout
-												.createParallelGroup(
-														javax.swing.GroupLayout.Alignment.BASELINE)
-												.addComponent(jTextField1,
-														javax.swing.GroupLayout.PREFERRED_SIZE,
-														javax.swing.GroupLayout.DEFAULT_SIZE,
-														javax.swing.GroupLayout.PREFERRED_SIZE)
-												.addComponent(jLabel1))
-								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,
-										Short.MAX_VALUE)));
-
-		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(
-				getContentPane());
-		getContentPane().setLayout(layout);
-		layout.setHorizontalGroup(layout.createParallelGroup(
-				javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-				layout
-						.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
-								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+		jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(jPanel1Layout.createSequentialGroup().addContainerGap()
+						.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+								.addGroup(jPanel1Layout.createSequentialGroup().addComponent(jLabel1)
+										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+										.addComponent(jTextField1))
+								.addGroup(jPanel1Layout.createSequentialGroup()
+										.addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 477,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+										.addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 332,
+												Short.MAX_VALUE)))
 						.addContainerGap()));
-		layout.setVerticalGroup(layout.createParallelGroup(
-				javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-				layout
-						.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
-								javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+		jPanel1Layout
+				.setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(jPanel1Layout.createSequentialGroup().addContainerGap()
+								.addGroup(jPanel1Layout
+										.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+										.addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 319,
+												Short.MAX_VALUE)
+										.addComponent(jScrollPane1))
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+								.addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+										.addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE,
+												javax.swing.GroupLayout.DEFAULT_SIZE,
+												javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addComponent(jLabel1))
+								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+
+		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+		getContentPane().setLayout(layout);
+		layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(layout.createSequentialGroup().addContainerGap().addComponent(jPanel1,
+						javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addContainerGap()));
+		layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				.addGroup(layout.createSequentialGroup().addContainerGap().addComponent(jPanel1,
+						javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addContainerGap()));
 
 		pack();
@@ -210,50 +177,22 @@ public class GUI extends javax.swing.JFrame implements KeyListener,
 
 	private void handleCommand(String command) {
 		displayTextArea.append("\n");
-		String[] words = command.split(" ");
+		CommandWords commandobj = new CommandWords(command);
 
-		if (words.length == 0)
-			return;
-
-		String first = words[0];
-		String second = (words.length >= 2) ? words[1] : null;
-		String third = (words.length >= 3) ? words[2] : null;
-		String rest = (words.length >= 2) ? command.substring(
-				command.indexOf(" ") + 1).trim() : "";
+		String first = commandobj.first;
+		String second = commandobj.second;
+		String third = commandobj.third;
+		String rest = commandobj.rest;
 
 		if (first.equals("help")) {
 			displayHelpMessage();
-		} else if (records.isId(first)) { // ***** Register Swipe *****
-			String id = first;
-			records.registerSwipe(id, LocalDateTime.now());
-			Employee e = records.getEmployeeById(id);
-			if (e != null) {
-				displayTextArea.append("Registered swipe for " + e.getFirstName()
-						+ ". Student is "
-						+ ((e.isInBuilding()) ? "signed IN" : "signed OUT"));
-
-				records.writeAttendanceDataToFile(path + attendanceData);
-			}
-			// ***** Lookup by Name ****
-		} else if (records.isName(first)) {
-			List<Employee> list = records.getEmployeesByName(first);
-			for (Employee e : list) {
-				displayTextArea.append(e.displayInfo() + "\n");
-				displayTextArea.append(e.getReportFor() + "\n");
-			}
-
+		} else if (records.isName(first)) { // ***** Lookup by Name ****
+			lookupByName(commandobj);
 			// **** List Missing Students ****
 		} else if (first.equals("missing")) {
-			if (second == null)
-				return;
-
-			List<Employee> list = records.getCurrentlyAbsentEmployeesFor(second);
-			for (Employee e : list)
-				displayTextArea.append(e.displayInfo() + "\n");
-
-			displayTextArea.append("Total: " + list.size());
-
-		} else if (first.equals("logout")) { // **** Logout a student Student ****
+			displayMissingList(commandobj);
+		} else if (first.equals("logout")) { // **** Logout a student Student
+												// ****
 			Employee e = records.getEmployeeById(second);
 			if (e != null) {
 				if (third != null) {
@@ -261,8 +200,7 @@ public class GUI extends javax.swing.JFrame implements KeyListener,
 						double amt = Double.parseDouble(third);
 						int hours = (int) amt;
 						int minutes = (int) (amt - hours * 60);
-						LocalDateTime t = LocalDateTime.now().minusHours(hours)
-								.minusMinutes(minutes);
+						LocalDateTime t = LocalDateTime.now().minusHours(hours).minusMinutes(minutes);
 						e.logout(t);
 
 						records.writeAttendanceDataToFile(path + attendanceData);
@@ -273,77 +211,140 @@ public class GUI extends javax.swing.JFrame implements KeyListener,
 			}
 
 		} else if (first.equals("report")) {
-			ArrayList<Employee> list = records.getAllEmployees();
-			Collections.sort(list);
-			Collections.reverse(list);
-
-			for (Employee e : list) {
-				displayTextArea.append(e.getFirstName() + " " + e.getLastName() + "\n");
-				displayTextArea.append(e.getReportFor());
-			}
-
-			records.writeAttendanceReportToFile("..\\attendanceReport.csv");
+			generateReport();
 		} else if (first.equals("list")) {
-			displayTextArea.append((second == null) ? records.getAllStudentsString()
-					: records.getStudentsString(rest) + "\n");
+			displayTextArea
+					.append((second == null) ? records.getAllStudentsString() : records.getStudentsString(rest) + "\n");
 
 			// **** List who is present ****
 		} else if (first.equals("who")) {
-			List<Employee> lst = records
-					.getEmployeesInBuildingAt(LocalDateTime.now());
-
-			if (second == null) {
-				displayTextArea.append("Students preset at " + LocalDateTime.now()
-						+ ": " + lst.size() + "\n");
-
-				for (Employee e : lst) {
-					this.displayTextArea.append(e.getFirstName() + " " + e.getLastName()
-							+ "\n");
-				}
-			} else {
-				List<Employee> lst2 = new ArrayList<Employee>();
-				for (Employee e : lst) {
-					if (e.getSubteam().toLowerCase().equals(second.toLowerCase()))
-						lst2.add(e);
-				}
-
-				displayTextArea.append("members of " + second.toUpperCase()
-						+ " preset at " + LocalDateTime.now() + ": " + lst2.size() + "\n");
-
-				for (Employee e : lst2) {
-					this.displayTextArea.append(e.getFirstName() + " " + e.getLastName()
-							+ "\n");
-				}
-			}
-			this.displayTextArea.append("***\n");
+			listPresentStudents(commandobj);
 		} else if (first.equals("exitnosave")) {
 			System.exit(0);
 		} else if (first.equals("register")) {
-			if (second == null) {
-				displayTextArea.append("To use the command: register <id-number>");
-				return;
+			handleRegisterCommand(commandobj);
+		} else { // ***** Register Swipe *****
+			registerSwipe(commandobj);
+		}
+	}
+
+	private void handleRegisterCommand(CommandWords commandobj) {
+		String second = commandobj.second;
+		if (second == null) {
+			displayTextArea.append("To use the command: register <id-number>");
+			return;
+		}
+
+		registerId(second);
+		
+	}
+
+	private void registerId(String second) {
+		if (records.isId(second)) {
+			displayTextArea.append("This id is already registered.");
+			return;
+		}
+
+		String fn = JOptionPane.showInputDialog("Type your first name");
+		String ln = JOptionPane.showInputDialog("Type your last name");
+		String team = JOptionPane.showInputDialog("What subteam are you on?");
+		String fresh = JOptionPane.showInputDialog("What year was your first year on the team?");
+		int year;
+		try {
+			year = Integer.parseInt(fresh);
+		} catch(Exception e) {
+			year = CURRENT_SEASON;
+		}
+		Employee e = new Employee(second, fn, ln, Employee.getSubteamFor(team), year);
+		records.addEmployee(e);
+		records.writeEmployeeDataToFile(path + studentData);
+		displayTextArea.append("You have been registered.");
+
+		records.registerSwipe(e.getId(), LocalDateTime.now());
+		displayTextArea.append("Registered swipe for " + e.getFirstName() + ". Student is "
+				+ ((e.isInBuilding()) ? "signed IN" : "signed OUT"));
+
+		records.writeAttendanceDataToFile(path + attendanceData);
+	}
+
+	private void listPresentStudents(CommandWords commandobj) {
+		List<Employee> lst = records.getEmployeesInBuildingAt(LocalDateTime.now());
+		String second = commandobj.second;
+		
+		if (second == null) {
+			displayTextArea.append("Students preset at " + LocalDateTime.now() + ": " + lst.size() + "\n");
+
+			for (Employee e : lst) {
+				this.displayTextArea.append(e.getFirstName() + " " + e.getLastName() + "\n");
+			}
+		} else {
+			List<Employee> lst2 = new ArrayList<Employee>();
+			for (Employee e : lst) {
+				if (e.getSubteam().toLowerCase().equals(second.toLowerCase()))
+					lst2.add(e);
 			}
 
-			if (records.isId(second)) {
-				displayTextArea.append("This id is already registered.");
-				return;
+			displayTextArea.append("members of " + second.toUpperCase() + " preset at " + LocalDateTime.now() + ": "
+					+ lst2.size() + "\n");
+
+			for (Employee e : lst2) {
+				this.displayTextArea.append(e.getFirstName() + " " + e.getLastName() + "\n");
 			}
+		}
+		this.displayTextArea.append("***\n");
+	}
 
-			String fn = JOptionPane.showInputDialog("Type your first name");
-			String ln = JOptionPane.showInputDialog("Type your last name");
-			String team = JOptionPane.showInputDialog("What subteam are you on?");
-			Employee e = new Employee(second, fn, ln, Employee.getSubteamFor(team),
-					CURRENT_SEASON);
-			records.addEmployee(e);
-			records.writeEmployeeDataToFile(path + studentData);
-			displayTextArea.append("You have been registered.");
+	private void generateReport() {
+		ArrayList<Employee> list = records.getAllEmployees();
+		Collections.sort(list);
+		Collections.reverse(list);
 
-			records.registerSwipe(e.getId(), LocalDateTime.now());
-			displayTextArea
-					.append("Registered swipe for " + e.getFirstName() + ". Student is "
-							+ ((e.isInBuilding()) ? "signed IN" : "signed OUT"));
+		for (Employee e : list) {
+			displayTextArea.append(e.getFirstName() + " " + e.getLastName() + "\n");
+			displayTextArea.append(e.getReportFor());
+		}
+
+		records.writeAttendanceReportToFile("..\\" + this.CURRENT_SEASON + "-attendanceReport.csv");
+	}
+
+	private void displayMissingList(CommandWords command) {
+		if (command.second == null) {
+			displayTextArea.append("Correct usage: missing <subteam>");
+			displayTextArea.append("for example: missing mechanical");
+			return;
+		}
+
+		List<Employee> list = records.getCurrentlyAbsentEmployeesFor(command.second);
+		displayTextArea.append("******* MISSING STUDENTS FROM " + command.second.toUpperCase() + " ********");
+		for (Employee e : list)
+			displayTextArea.append(e.displayInfo() + "\n");
+
+		displayTextArea.append("Total: " + list.size());
+	}
+
+	private void lookupByName(CommandWords commandobj) {
+		List<Employee> list = records.getEmployeesByName(commandobj.first);
+		for (Employee e : list) {
+			displayTextArea.append(e.displayInfo() + "\n");
+			displayTextArea.append(e.getReportFor() + "\n");
+		}
+
+	}
+
+	private void registerSwipe(CommandWords commandobj) {
+		String id = commandobj.first;
+		records.registerSwipe(id, LocalDateTime.now());
+		Employee e = records.getEmployeeById(id);
+		if (e != null) {
+			displayTextArea.append("Registered swipe for " + e.getFirstName() + ". Student is "
+					+ ((e.isInBuilding()) ? "signed IN" : "signed OUT"));
 
 			records.writeAttendanceDataToFile(path + attendanceData);
+		} else {
+			System.out.println("HERE!");
+			if (JOptionPane.showConfirmDialog(null, "Do you wish to register the id: " + id + "?") == 0) {
+				this.registerId(id);
+			}
 		}
 	}
 
@@ -352,23 +353,19 @@ public class GUI extends javax.swing.JFrame implements KeyListener,
 		displayTextArea.append("help\t\t- Get this list\n\n");
 
 		displayTextArea.append("who\t\t- List who is present\n");
-		displayTextArea
-				.append("who [subteam]\t\t- List who is present in a subteam.\n\n");
+		displayTextArea.append("who [subteam]\t\t- List who is present in a subteam.\n\n");
 
 		displayTextArea.append("[id #]\t\t- Scans person in or out\n");
-		displayTextArea
-				.append("[first name]\t\t- List whether person is present\n");
+		displayTextArea.append("[first name]\t\t- List whether person is present\n");
 		displayTextArea.append("[last name]\t\t- List whether person is present\n");
-		displayTextArea
-				.append("list\t\t- List all people (regardless of whether present)\n");
-		displayTextArea
-				.append("list [subteam name]\t\t- List all people in subteam.\n");
+		displayTextArea.append("list\t\t- List all people (regardless of whether present)\n");
+		displayTextArea.append("list [subteam name]\t\t- List all people in subteam.\n");
 
 	}
 
 	/**
 	 * @param args
-	 *          the command line arguments
+	 *            the command line arguments
 	 */
 	public static void main(String args[]) {
 		/* Set the Nimbus look and feel */
@@ -377,37 +374,52 @@ public class GUI extends javax.swing.JFrame implements KeyListener,
 		/*
 		 * If Nimbus (introduced in Java SE 6) is not available, stay with the
 		 * default look and feel. For details see
-		 * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf. html
+		 * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.
+		 * html
 		 */
 		try {
-			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager
-					.getInstalledLookAndFeels()) {
+			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
 				if ("Nimbus".equals(info.getName())) {
 					javax.swing.UIManager.setLookAndFeel(info.getClassName());
 					break;
 				}
 			}
 		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(GUI.class.getName()).log(
-					java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(GUI.class.getName()).log(
-					java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(GUI.class.getName()).log(
-					java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(GUI.class.getName()).log(
-					java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		}
 		// </editor-fold>
 
+		GUI gui = new GUI();
 		/* Create and display the form */
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new GUI().setVisible(true);
+				gui.setVisible(true);
 			}
 		});
+		
+		new Thread(new Runnable() {
+			public void run() {
+				boolean night = false;
+				while(true) {
+					LocalDateTime now = LocalDateTime.now();
+					if (!night && now.getHour() > ENDING_HOUR) {
+						System.out.println("Auto-Logging-out");
+						gui.getRecords().logOutAllStudents();
+						gui.getRecords().writeAttendanceDataToFile(path + attendanceData);
+						night = true;
+					} else if (now.getHour() < STARTING_HOUR) {
+						System.out.println("Starting up for a new day!");
+						night = false;
+					}
+				}
+			}
+		}).start();
 	}
 
 	// Variables declaration - do not modify
@@ -466,4 +478,5 @@ public class GUI extends javax.swing.JFrame implements KeyListener,
 		// TODO Auto-generated method stub
 
 	}
+
 }

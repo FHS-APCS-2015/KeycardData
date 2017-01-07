@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class EmployeeRecords {
-	private LocalDateTime W1Start = LocalDateTime.of(2016, 1, 9, 1, 0, 0);
+	private LocalDateTime W1Start = LocalDateTime.of(2017, 1, 9, 1, 0, 0);
 	private LocalDateTime W2Start = W1Start.plusWeeks(1);
 	private LocalDateTime W3Start = W1Start.plusWeeks(2);
 	private LocalDateTime W4Start = W1Start.plusWeeks(3);
@@ -172,6 +172,7 @@ public class EmployeeRecords {
 
 	public void writeAttendanceDataToFile(String filePath) {
 		BufferedWriter writer = null;
+		
 		try {
 			// create a temporary file
 			File logFile = new File(filePath);
@@ -181,9 +182,15 @@ public class EmployeeRecords {
 			writer.write("swiping in and out. A blank line starts a new record. \n\n");
 
 			// loop over all records
-			for (Employee employee : this.employees) {
+			for (int i = 0; i < employees.size(); i++) {
+				Employee employee = employees.get(i);
+				
 				writer.write(employee.getId() + " " + employee.getFirstName() + " " + employee.getLastName() + "\n");
-				for (LocalDateTime swipe : employee.getSwipes()) {
+
+				ArrayList<LocalDateTime> swipes = employee.getSwipes();
+				for (int j = 0; j < swipes.size(); j++) {
+					LocalDateTime swipe = swipes.get(j);
+
 					writer.write(swipe.toString());
 					if (employee.forgotToSignOutOn(swipe)) writer.write(" **");
 					writer.write("\n");

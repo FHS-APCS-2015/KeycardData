@@ -84,7 +84,7 @@ public class Employee implements Comparable<Employee> {
 
 	public String toString() {
 		return this.id + " " + this.firstname + " " + this.lastname + " "
-				+ this.subteam.toString() + " ";
+				+ this.subteam.toString() + " " + this.firstYear;
 	}
 	
 	public String displayInfo() {
