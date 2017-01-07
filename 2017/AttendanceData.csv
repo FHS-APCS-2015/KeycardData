@@ -1,19 +1,25 @@
 Format:  Each entry starts with an id followed by a series of datetimes for 
 swiping in and out. A blank line starts a new record. 
 
+87654 mol loh
+
+872349875] me me
+
+567345 me mine
+
+98776532 Melborn McCaw
+
+87234751 Maria Anjar
+
 12345 David Dobervich
 2017-01-06T20:04:25.192
 2017-01-06T20:04:45.548
 2017-01-06T20:06:28.827
 2017-01-06T20:06:31.101
+2017-01-06T20:08:28.216
+2017-01-06T20:09:00.031
 
-87234751 Maria Anjar
-
-98776532 Melborn McCaw
-
-567345 me mine
-
-872349875] me me
-
-87654 mol loh
+87658746 Henry Higgins
+2017-01-06T20:10:46.587
+2017-01-06T20:10:56.752 **
 

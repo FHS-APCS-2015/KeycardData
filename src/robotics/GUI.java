@@ -41,6 +41,9 @@ public class GUI extends javax.swing.JFrame implements KeyListener, WindowListen
 
 		displayTextArea.addKeyListener(this);
 		this.addWindowListener(this);
+		
+		// Start by displaying help message
+		this.displayHelpMessage();
 	}
 
 	public EmployeeRecords getRecords() {
@@ -354,16 +357,17 @@ public class GUI extends javax.swing.JFrame implements KeyListener, WindowListen
 
 	private void displayHelpMessage() {
 		displayTextArea.append("Commands:\n");
-		displayTextArea.append("help\t\t- Get this list\n\n");
+		displayTextArea.append("help\t\t\t- Get this list\n\n");
 
-		displayTextArea.append("who\t\t- List who is present\n");
+		displayTextArea.append("who\t\t\t- List who is present\n");
 		displayTextArea.append("who [subteam]\t\t- List who is present in a subteam.\n\n");
-
-		displayTextArea.append("[id #]\t\t- Scans person in or out\n");
-		displayTextArea.append("[first name]\t\t- List whether person is present\n");
-		displayTextArea.append("[last name]\t\t- List whether person is present\n");
-		displayTextArea.append("list\t\t- List all people (regardless of whether present)\n");
-		displayTextArea.append("list [subteam name]\t\t- List all people in subteam.\n");
+		displayTextArea.append("missing [subteam]\t- List who is present\n");
+		
+		displayTextArea.append("[id #]\t\t\t- Scans person in or out\n");
+		displayTextArea.append("[first name]\t\t- List whether person is present + last login\n");
+		displayTextArea.append("[last name]\t\t- List whether person is present + last login\n");
+		displayTextArea.append("list\t\t\t- List all people (regardless of whether present)\n");
+		displayTextArea.append("list [subteam name]\t- List all people in subteam.\n");
 
 	}
 
