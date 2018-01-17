@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  * @author David
  */
 public class GUI extends javax.swing.JFrame implements KeyListener, WindowListener {
-	private static final String path = "2017/";
+	private static final String path = "2018/";
 	private static final String studentData = "StudentData.csv";
 	private static final String attendanceData = "AttendanceData.csv";
 	private static final int CURRENT_SEASON = 2017;

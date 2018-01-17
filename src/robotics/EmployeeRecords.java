@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class EmployeeRecords {
-	private LocalDateTime W1Start = LocalDateTime.of(2017, 1, 9, 1, 0, 0);
+	private LocalDateTime W1Start = LocalDateTime.of(2018, 1, 6, 1, 0, 0);
 	private LocalDateTime W2Start = W1Start.plusWeeks(1);
 	private LocalDateTime W3Start = W1Start.plusWeeks(2);
 	private LocalDateTime W4Start = W1Start.plusWeeks(3);
@@ -151,12 +151,12 @@ public class EmployeeRecords {
 							employee.getFirstName() + "," + 
 							employee.getLastName() + "," +
 							employee.getSubteam() + "," +
-							employee.getTotalTime(false, W1Start, W2Start)+ "," +
-							employee.getTotalTime(false, W2Start, W3Start)+ "," +
-							employee.getTotalTime(false, W3Start, W4Start)+ "," +
-							employee.getTotalTime(false, W4Start, W5Start)+ "," +
-							employee.getTotalTime(false, W5Start, W6Start)+ "," +
-							employee.getTotalTime(false, W6Start, W7Start)+ "," +
+							employee.getTotalTime(true, W1Start, W2Start)+ "," +
+							employee.getTotalTime(true, W2Start, W3Start)+ "," +
+							employee.getTotalTime(true, W3Start, W4Start)+ "," +
+							employee.getTotalTime(true, W4Start, W5Start)+ "," +
+							employee.getTotalTime(true, W5Start, W6Start)+ "," +
+							employee.getTotalTime(true, W6Start, W7Start)+ "," +
 						"\n");
 			}
 
